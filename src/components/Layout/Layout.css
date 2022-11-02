@@ -1,0 +1,12 @@
+.title-name {
+  margin: 0;
+  padding-left: 100px;
+  font-weight: 400;
+  font-size: 40px;
+}
+
+@media screen and (max-width: 720px) {
+  .title-name {
+  padding-left: 0;
+}
+}

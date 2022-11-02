@@ -1,0 +1,137 @@
+@import url(./vendor/normalize.css);
+@import url(./fonts/inter.css);
+
+body {
+  --color-dark: #101010;
+  --color-light-grey: #323232;
+  --color-dark-grey: #202020;
+  --color-white: #ffffff;
+  --btn-submit: #3ddc84;
+  --btn-create: #2b66fb;
+  --font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  max-width: 1280px;
+  color: var(--color-white);
+  background-color: var(--color-dark);
+  padding: 0;
+  margin: 0 auto;
+  font-family: var(--font-family);
+  text-rendering: optimizeLegibility;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: center;
+  font-family: var(--font-family);
+}
+
+.app__btn {
+  padding: 0;
+  color: var(--color-white);
+  font-family: var(--font-family);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  transition: linear 0.3s;
+  text-decoration: none;
+}
+
+.app__btn-opacity:hover {
+  opacity: 0.6;
+  cursor: pointer;
+  transition: linear 0.3s;
+}
+
+.main__btn {
+  align-self: center;
+  width: 100%;
+  max-width: 396px;
+  height: 60px;
+  background-color: var(--btn-submit);
+  border: none;
+  padding: 0;
+  color: var(--color-white);
+  font-family: var(--font-family);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: 0.8px;
+  border-radius: 2px;
+  transition: linear 0.3s;
+}
+
+.main__btn:disabled {
+  opacity: 0.3;
+}
+
+.section__heading {
+  width: 100%;
+  font-family: var(--font-family);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  margin: 0;
+  padding-bottom: 23px;
+  color: var(--color-white);
+  border-bottom: #dadada 2px solid;
+}
+
+.input-error_auth {
+  font-family: var(--font-family);
+  margin: 6px 0 6px 0;
+  min-height: 30px;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 15px;
+  color: #ee3465;
+}
+
+.section__title {
+  margin: 0;
+  font-family: var(--font-family);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+}
+
+.block__hide {
+  display: none;
+}
+
+.section {
+  max-width: 1280px;
+  width: 100%;
+  padding: 0 70px;
+  box-sizing: border-box;
+}
+
+.section_height {
+  height: 100vh;
+}
+
+@media screen and (max-width: 1070px) {
+  .section {
+    padding: 0 50px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .section {
+    padding: 0 14px;
+  }
+  .section__heading {
+    padding-bottom: 28px;
+  }
+  .input-error_auth {
+    font-size: 12px;
+    margin: 1px 0 1px 0;
+  }
+}
