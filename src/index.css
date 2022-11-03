@@ -1,6 +1,17 @@
 @import url(./vendor/normalize.css);
 @import url(./fonts/inter.css);
 
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* -------------------------------- */
+
 body {
   --color-dark: #101010;
   --color-light-grey: #323232;
@@ -8,6 +19,7 @@ body {
   --color-white: #ffffff;
   --btn-submit: #3ddc84;
   --btn-create: #2b66fb;
+  --catalog-color: #89796B;
   --font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   max-width: 1280px;
   color: var(--color-white);

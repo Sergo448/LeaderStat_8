@@ -15,9 +15,9 @@ export default function Navigation({ loggedIn, isOpen, closeMenu, menuClass, ...
       <NavLink
         className={`nav__link app__btn-opacity nav__link_${menuClass}`}
         onClick={closeMenu}
-        to="/activity"
+        to="/catalog"
       >
-        Мероприятия
+        Справочники
       </NavLink>
       <NavLink
         className={`nav__link app__btn-opacity nav__link_${menuClass}`}

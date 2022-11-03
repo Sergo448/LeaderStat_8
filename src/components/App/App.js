@@ -10,7 +10,7 @@ import { CurrentUserContext } from '../context/CurrentUserContext';
 import './App.css';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
-import SavedMovies from '../SavedMovies/SavedMovies';
+import SavedMovies from '../SavedMovies/Catalogs';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
@@ -298,7 +298,7 @@ function App() {
               }
             ></Route>
             <Route
-              path="/activity"
+              path="/catalog"
               element={
                 <PrivateRoute loggedIn={loggedIn} location={location}>
                   <SavedMovies
