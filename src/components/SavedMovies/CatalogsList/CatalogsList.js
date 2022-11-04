@@ -75,7 +75,9 @@ const [docName, setDocName] = useState('')
                 src={require('../../../images/doc.jpg')}
                 alt="docs logo"
               ></img>
-              <span>{docName ? docName : 'Загруженный документ'}</span>
+              <span className="catalog__docs-text">
+                {docName ? docName : 'Загруженный документ'}
+              </span>
             </li>
             <li className="catalog__list-item">
               <img
@@ -83,7 +85,9 @@ const [docName, setDocName] = useState('')
                 src={require('../../../images/doc.jpg')}
                 alt="docs logo"
               ></img>
-              <span>{docName ? docName : 'Загруженный документ'}</span>
+              <span className="catalog__docs-text">
+                {docName ? docName : 'Загруженный документ'}
+              </span>
             </li>{' '}
             <li className="catalog__list-item">
               <img
@@ -91,7 +95,9 @@ const [docName, setDocName] = useState('')
                 src={require('../../../images/doc.jpg')}
                 alt="docs logo"
               ></img>
-              <span>{docName ? docName : 'Загруженный документ'}</span>
+              <span className="catalog__docs-text">
+                {docName ? docName : 'Загруженный документ'}
+              </span>
             </li>{' '}
             <li className="catalog__list-item">
               <img
@@ -99,7 +105,9 @@ const [docName, setDocName] = useState('')
                 src={require('../../../images/doc.jpg')}
                 alt="docs logo"
               ></img>
-              <span>{docName ? docName : 'Загруженный документ'}</span>
+              <span className="catalog__docs-text">
+                {docName ? docName : 'Загруженный документ'}
+              </span>
             </li>
           </ul>
         </div>
