@@ -9,7 +9,7 @@ import {
 import { CurrentUserContext } from '../context/CurrentUserContext';
 import './App.css';
 import Main from '../Main/Main';
-import Movies from '../Movies/Movies';
+import Projects from '../Movies/Projects';
 import SavedMovies from '../SavedMovies/Catalogs';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
@@ -213,7 +213,7 @@ function App() {
               path="/projects"
               element={
                 <PrivateRoute loggedIn={loggedIn} location={location}>
-                  <Movies
+                  <Projects
                     moviesList={moviesList}
                     savedMoviesList={savedMoviesList}
                     setMoviesList={setMoviesList}

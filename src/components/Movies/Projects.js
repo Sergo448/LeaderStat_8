@@ -1,8 +1,8 @@
-import './Movies.css';
+import './Projects.css';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import { useEffect, useState } from 'react';
 
-export default function Movies({
+export default function Projects({
   location,
   message,
   setMessage,

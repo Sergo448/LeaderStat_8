@@ -40,7 +40,7 @@ app.post('/upload', async (req, res) => {
           let doc = req.files.docs[key];
 
           //move doc to upload directory
-          doc.mv('./uploads/' + doc.name);
+          doc.mv('../public/uploads/' + doc.name);
 
           //push file details
           data.push({
@@ -59,7 +59,7 @@ app.post('/upload', async (req, res) => {
       } else if ((req.files.docs.length = 1)) {
         let docs = req.files.docs;
 
-        docs.mv('./uploads/' + docs.name);
+        docs.mv('../public/uploads/' + docs.name);
 
         //send response
         res.send({
