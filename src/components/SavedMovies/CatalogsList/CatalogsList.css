@@ -13,11 +13,11 @@
   row-gap: 35px;
   column-gap: 20px;
   grid-template-columns: repeat(4, minmax(min-content, 1fr));
-  grid-template-rows: repeat(2, 60px) 50px 1fr;
+  grid-template-rows: repeat(2, 60px) 1fr 1fr;
   grid-template-areas:
     'btn1 btn1 btn3 btn3'
     'btn2 btn2 btn4 btn4'
-    'docs-to-add docs-to-add docs-to-add docs-to-add'
+    'catalog__sn catalog__sn catalog__tsn catalog__tsn'
     'submit submit submit submit';
 }
 
@@ -47,8 +47,23 @@
 }
 
 .catalog__docs-to-add {
-  grid-area: docs-to-add;
   min-height: 60px;
+}
+
+.catalog__sn {
+  grid-area: catalog__sn;
+}
+
+.catalog__tsn {
+  grid-area: catalog__tsn;
+}
+
+.catalog__docs-wrapper {
+  max-width: 283px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .catalog__submit {
@@ -91,6 +106,7 @@
 }
 
 .catalog__docs-text {
+  padding-top: 5px;
   font-size: 15px;
 }
 
@@ -111,13 +127,12 @@
 }
 
 @media screen and (max-width: 720px) {
-    .catalog__label {
+  .catalog__label {
     font-size: 15px;
-}
+  }
 }
 
 @media screen and (max-width: 450px) {
-
   .catalog__wrapper {
     margin-left: 10px;
     margin-right: 10px;
@@ -131,7 +146,6 @@
     margin-right: 10px;
     border-left: none;
     border-top: 2px solid var(--catalog-color);
-
   }
   .catalog__btn {
     padding: 10px;

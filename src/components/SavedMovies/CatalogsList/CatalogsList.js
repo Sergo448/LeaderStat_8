@@ -10,7 +10,34 @@ export default function CatalogsList({
   ...props
 }) {
 
-const [docName, setDocName] = useState('')
+const [selectedSNFile, setSelectedSNFile] = useState(null);
+const [selectedTSNFile, setSelectedTSNFile] = useState(null);
+const [docName, setDocName] = useState('');
+
+const handleSNChange = (event) => {
+  setSelectedSNFile(event.target.files[0])
+}
+
+const handleTSNChange = (event) => {
+  setSelectedTSNFile(event.target.files[0]);
+};
+
+const handleDelDoc = (event) => {
+  console.log(event.target);
+  // if ()
+  // setSelectedSNFile();
+};
+
+const handleUpload = async (file) => {
+  if (!file) {
+    alert('Выберите файл для загрузки');
+    return;
+  };
+};
+
+const toKb = (number) => {
+  return Math.round(number/1024);
+};
 
   return (
     <>
@@ -23,6 +50,8 @@ const [docName, setDocName] = useState('')
               type="file"
               name="file"
               id="input__sn-file"
+              accept=".xls, .xlsx"
+              onChange={handleSNChange}
             />
             <label className="catalog__label" htmlFor="input__sn-file">
               + Добавить файл СН
@@ -34,18 +63,38 @@ const [docName, setDocName] = useState('')
               type="file"
               name="file"
               id="input__sn-archive"
+              accept=".xls, .xlsx"
             />
             <label className="catalog__label" htmlFor="input__sn-archive">
               + Добавить из Архива
             </label>
           </div>
-          <div className="catalog__docs-to-add"></div>
+          <div className="catalog__docs-to-add catalog__sn">
+            {selectedSNFile && (
+              <div className="catalog__docs-wrapper">
+                <img
+                  className="catalog__list-logo app__btn-opacity"
+                  src={require('../../../images/doc.jpg')}
+                  alt="docs logo"
+                  onClick={handleDelDoc}
+                ></img>
+                <span className="catalog__docs-text">
+                  Имя файла: {selectedSNFile.name}
+                </span>
+                <span className="catalog__docs-text">
+                  Размер: {toKb(selectedSNFile.size)} Кб
+                </span>
+              </div>
+            )}
+          </div>
           <div className="catalog__btn catalog__add-document app__btn-opacity">
             <input
               className="catalog__input-hide"
               type="file"
               name="file"
               id="input__tsn-file"
+              accept=".xls, .xlsx"
+              onChange={handleTSNChange}
             />
             <label className="catalog__label" htmlFor="input__tsn-file">
               + Добавить файл ТСН
@@ -62,7 +111,23 @@ const [docName, setDocName] = useState('')
               + Добавить из Архива
             </label>
           </div>
-          <div className="catalog__docs-to-add"></div>
+          <div className="catalog__docs-to-add catalog__tsn">
+            {selectedTSNFile && (
+              <div className="catalog__docs-wrapper">
+                <img
+                  className="catalog__list-logo app__btn-opacity"
+                  src={require('../../../images/doc.jpg')}
+                  alt="docs logo"
+                ></img>
+                <span className="catalog__docs-text">
+                  Имя файла: {selectedTSNFile.name}
+                </span>
+                <span className="catalog__docs-text">
+                  Размер: {toKb(selectedTSNFile.size)} Кб
+                </span>
+              </div>
+            )}
+          </div>
           <button className="catalog__btn catalog__submit app__btn-opacity">
             Загрузить
           </button>
