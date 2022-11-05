@@ -16,13 +16,12 @@ import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import Layout from '../Layout/Layout';
-import MoviesApi from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 import PrivateRoute from '../../hoc/PrivateRoute';
 
 function App() {
   const location = useLocation();
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
   const [savedMoviesList, setSavedMoviesList] = useState([]);
@@ -30,8 +29,7 @@ function App() {
   const [isSearchEnd, setIsSearchEnd] = useState(false);
   const [message, setMessage] = useState('');
   const [onEdit, setOnEdit] = useState(false);
-  let loginStatus = false;
-  const nav = useNavigate();
+  let loginStatus = true;
   useContext(CurrentUserContext);
   const [titleName, setTitleName] = useState('Компании');
   const [currentUser, setCurrentUser] = useState({
@@ -39,12 +37,12 @@ function App() {
     email: '',
   });
 
-  useEffect(() => {
-    loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
-    if (loginStatus) {
-      tokenCheck();
-    }
-  }, []);
+  // useEffect(() => {
+  //   loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
+  //   if (loginStatus) {
+  //     tokenCheck();
+  //   }
+  // }, []);
 
   //Регистрация нового пользователя
   function onSignUp(name, email, password) {
@@ -52,7 +50,7 @@ function App() {
       .signInSignUp('/signup', name, email, password)
       .then((res) => {
         if (res.statusCode !== 400) {
-          tokenCheck();
+          // tokenCheck();
           setMessage('');
           return <Navigate to="/" replace />;
         }
@@ -72,7 +70,7 @@ function App() {
       .signInSignUp('/signin', password, email)
       .then((res) => {
         if (res.statusCode !== 400) {
-          tokenCheck();
+          // tokenCheck();
           setMessage('');
           <Navigate to="/" replace />;
         }
@@ -111,24 +109,24 @@ function App() {
   }
 
   //Авторизация пользователя
-  function tokenCheck() {
-    mainApi
-      .getUserData('/users/me')
-      .then((res) => {
-        if (res.email) {
-          localStorage.setItem('loginStatus', JSON.stringify(true));
-          setCurrentUser(res);
-          setMessage('');
-          setLoggedIn(true);
-          console.log(`tokenCheck: ${loginStatus}`);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoggedIn(false);
-        localStorage.clear();
-      });
-  }
+  // function tokenCheck() {
+  //   mainApi
+  //     .getUserData('/users/me')
+  //     .then((res) => {
+  //       if (res.email) {
+  //         localStorage.setItem('loginStatus', JSON.stringify(true));
+  //         setCurrentUser(res);
+  //         setMessage('');
+  //         setLoggedIn(true);
+  //         console.log(`tokenCheck: ${loginStatus}`);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       setLoggedIn(false);
+  //       localStorage.clear();
+  //     });
+  // }
 
   //Обновление профиля пользователя
   function handleUpdateUser(userData) {
@@ -158,68 +156,6 @@ function App() {
   const handleCloseMenuClick = () => {
     setIsOpen(false);
   };
-
-  //получение массива фильмов из API BeatFilm
-  function getMovies() {
-    MoviesApi()
-      .then((movies) => {
-        setMoviesList(movies);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setMessage(
-          'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
-        );
-        console.log(err);
-      });
-  }
-
-  //получение массива сохранённых пользователем фильмов
-  function handleGetSavedMovies() {
-    mainApi
-      .getSavedMovie()
-      .then((movies) => {
-        setSavedMoviesList(movies);
-        localStorage.setItem('savedMovies', JSON.stringify(savedMoviesList));
-        setIsLoading(false);
-      })
-      .catch((err) => console.log(err));
-  }
-
-  //Добавление фильма в сохранённые
-  function addToSavedMovies(movie) {
-    mainApi
-      .postNewMovie(movie)
-      .then((savedMovie) => {
-        const actualMoviesList = [
-          ...savedMoviesList,
-          { ...savedMovie, id: savedMovie.movieId },
-        ];
-        setSavedMoviesList(actualMoviesList);
-        localStorage.setItem('savedMovies', JSON.stringify(actualMoviesList));
-      })
-      .catch((err) => console.log(err));
-  }
-
-  // удаление фильма из сохранённых и отрисовка актуального списка фильмов
-  function removeFromSavedMovies(movie) {
-    mainApi
-      .deleteMovie(movie._id)
-      .then(() => {
-        const actualMoviesList = savedMoviesList.filter(
-          (m) => m._id !== movie._id
-        );
-        setSavedMoviesList(actualMoviesList);
-        localStorage.setItem('savedMovies', JSON.stringify(actualMoviesList));
-      })
-      .catch((err) => console.log(err));
-  }
-
-  useEffect(() => {
-    if (loggedIn) {
-      handleGetSavedMovies();
-    }
-  }, [loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -278,7 +214,6 @@ function App() {
               element={
                 <PrivateRoute loggedIn={loggedIn} location={location}>
                   <Movies
-                    getMovies={getMovies}
                     moviesList={moviesList}
                     savedMoviesList={savedMoviesList}
                     setMoviesList={setMoviesList}
@@ -286,8 +221,6 @@ function App() {
                     isLoading={isLoading}
                     setIsLoading={setIsLoading}
                     location={location.pathname}
-                    onClickLike={addToSavedMovies}
-                    onClickRemove={removeFromSavedMovies}
                     isSearchEnd={isSearchEnd}
                     setIsSearchEnd={setIsSearchEnd}
                     message={message}
@@ -309,9 +242,6 @@ function App() {
                     savedMoviesList={savedMoviesList}
                     setSavedMoviesList={setSavedMoviesList}
                     location={location.pathname}
-                    getSavedMovies={handleGetSavedMovies}
-                    onClickLike={addToSavedMovies}
-                    onClickRemove={removeFromSavedMovies}
                     isSearchEnd={isSearchEnd}
                     setIsSearchEnd={setIsSearchEnd}
                     message={message}

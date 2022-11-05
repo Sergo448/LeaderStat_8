@@ -12,7 +12,9 @@ export default function CatalogsList({
 
 const [selectedSNFile, setSelectedSNFile] = useState(null);
 const [selectedTSNFile, setSelectedTSNFile] = useState(null);
+const [uploaded, setUploaded] = useState(null);
 const [docName, setDocName] = useState('');
+const hostUrl = 'http://localhost:3005/upload';
 
 const handleSNChange = (event) => {
   setSelectedSNFile(event.target.files[0])
@@ -28,11 +30,36 @@ const handleDelDoc = (event) => {
   // setSelectedSNFile();
 };
 
-const handleUpload = async (file) => {
+const handleSNUpload = async (file) => {
   if (!file) {
     alert('Выберите файл для загрузки');
     return;
   };
+
+  const SNData = new FormData();
+  SNData.append('docs', selectedSNFile);
+
+  const res = await fetch(hostUrl, { method: 'POST', body: SNData });
+
+    const data = await res.json();
+    setUploaded(data);
+    console.log(data);
+};
+
+const handleTSNUpload = async (file) => {
+  if (!file) {
+    alert('Выберите файл для загрузки');
+    return;
+  }
+
+  const TSNData = new FormData();
+  TSNData.append('docs', selectedTSNFile);
+
+  const res = await fetch(hostUrl, { method: 'POST', body: TSNData });
+
+  const data = await res.json();
+  setUploaded(data);
+  console.log(data);
 };
 
 const toKb = (number) => {
@@ -57,7 +84,7 @@ const toKb = (number) => {
               + Добавить файл СН
             </label>
           </div>
-          <div className="catalog__btn catalog__add-document app__btn-opacity">
+          {/* <div className="catalog__btn catalog__add-document app__btn-opacity">
             <input
               className="catalog__input-hide"
               type="file"
@@ -68,7 +95,13 @@ const toKb = (number) => {
             <label className="catalog__label" htmlFor="input__sn-archive">
               + Добавить из Архива
             </label>
-          </div>
+          </div> */}
+          <button
+            className="catalog__btn catalog__submit app__btn-opacity"
+            onClick={handleSNUpload}
+          >
+            Загрузить
+          </button>
           <div className="catalog__docs-to-add catalog__sn">
             {selectedSNFile && (
               <div className="catalog__docs-wrapper">
@@ -100,7 +133,13 @@ const toKb = (number) => {
               + Добавить файл ТСН
             </label>
           </div>
-          <div className="catalog__btn catalog__add-document app__btn-opacity">
+          <button
+            className="catalog__btn catalog__submit app__btn-opacity"
+            onClick={handleTSNUpload}
+          >
+            Загрузить
+          </button>
+          {/* <div className="catalog__btn catalog__add-document app__btn-opacity">
             <input
               className="catalog__input-hide"
               type="file"
@@ -110,7 +149,7 @@ const toKb = (number) => {
             <label className="catalog__label" htmlFor="input__tsn-archive">
               + Добавить из Архива
             </label>
-          </div>
+          </div> */}
           <div className="catalog__docs-to-add catalog__tsn">
             {selectedTSNFile && (
               <div className="catalog__docs-wrapper">
@@ -128,9 +167,12 @@ const toKb = (number) => {
               </div>
             )}
           </div>
-          <button className="catalog__btn catalog__submit app__btn-opacity">
+          {/* <button
+            className="catalog__btn catalog__submit app__btn-opacity"
+            onClick={handleSNUpload}
+          >
             Загрузить
-          </button>
+          </button> */}
         </div>
         <div className="catalog__uploaded">
           <ul className="catalog__list">

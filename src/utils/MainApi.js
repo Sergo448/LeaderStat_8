@@ -1,5 +1,3 @@
-import { mainApiPath } from '../components/constants/constants';
-
 export const resultHandler = (res) => {
   if (res.ok) {
     return res.json();
@@ -84,6 +82,6 @@ class Api {
   }
 }
 
-export const mainApi = new Api(mainApiPath, {
+export const mainApi = new Api('', {
 
 });

@@ -23,79 +23,64 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
-// upoad single file
-app.post('/upload-avatar', async (req, res) => {
+// выгрузка сметы и справочников
+app.post('/upload', async (req, res) => {
   try {
     if (!req.files) {
       res.send({
         status: false,
-        message: 'No file uploaded',
-      });
-    } else {
-      //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
-      let avatar = req.files.avatar;
-
-      //Use the mv() method to place the file in upload directory (i.e. "uploads")
-      avatar.mv('./uploads/' + avatar.name);
-
-      //send response
-      res.send({
-        status: true,
-        message: 'File is uploaded',
-        data: {
-          name: avatar.name,
-          mimetype: avatar.mimetype,
-          size: avatar.size,
-        },
-      });
-    }
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
-
-// upload multiple files
-app.post('/upload-photos', async (req, res) => {
-  try {
-    if (!req.files) {
-      res.send({
-        status: false,
-        message: 'No file uploaded',
+        message: 'Файл отсутствует!',
       });
     } else {
       let data = [];
 
       //loop all files
-      _.forEach(_.keysIn(req.files.photos), (key) => {
-        let photo = req.files.photos[key];
+      if (req.files.docs.length > 1) {
+        _.forEach(_.keysIn(req.files.docs), (key) => {
+          let doc = req.files.docs[key];
 
-        //move photo to upload directory
-        photo.mv('./uploads/' + photo.name);
+          //move doc to upload directory
+          doc.mv('./uploads/' + doc.name);
 
-        //push file details
-        data.push({
-          name: photo.name,
-          mimetype: photo.mimetype,
-          size: photo.size,
+          //push file details
+          data.push({
+            name: doc.name,
+            mimetype: doc.mimetype,
+            size: doc.size,
+          });
         });
-      });
 
-      //return response
-      res.send({
-        status: true,
-        message: 'Files are uploaded',
-        data: data,
-      });
+        //return response
+        res.send({
+          status: true,
+          message: 'Выгрузка завершена успешно',
+          data: data,
+        });
+      } else if ((req.files.docs.length = 1)) {
+        let docs = req.files.docs;
+
+        docs.mv('./uploads/' + docs.name);
+
+        //send response
+        res.send({
+          status: true,
+          message: 'Файл выгружен',
+          data: {
+            name: docs.name,
+            mimetype: docs.mimetype,
+            size: docs.size,
+          },
+        });
+      }
     }
-  } catch (err) {
+
+  }
+    catch (err) {
     res.status(500).send(err);
   }
 });
 
 //make uploads directory static
 app.use(express.static('uploads'));
-
-//start app
-// const port = process.env.PORT || 3005;
 
 app.listen(PORT, () => console.log(`App is listening on port ${PORT}.`));

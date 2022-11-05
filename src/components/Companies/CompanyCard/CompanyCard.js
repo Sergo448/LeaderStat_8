@@ -1,12 +1,8 @@
-import { timeToHour } from '../../../utils/utils';
-import { baseApiPath } from '../../constants/constants';
 import './CompanyCard.css';
 
 export default function CompanyCard({
   company,
   savedCompanyList,
-  onClickLike,
-  onClickRemove,
   location,
   isLiked,
   ...props
