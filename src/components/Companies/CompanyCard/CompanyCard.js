@@ -8,34 +8,6 @@ export default function CompanyCard({
   ...props
 }) {
 
-  // const urlTest = /https?:\/\/(?:[-\w]+\.)?([-\w]+)\.\w+(?:\.\w+)?\/?.*/i;
-
-  // function handleDeleteClick() {
-  //   onClickRemove(company);
-  // }
-
-  // function handleLikeClick() {
-  //   if (!isLiked)
-  //     onClickLike({
-  //       companyId: company.id,
-  //       nameRU: company.nameRU,
-  //       nameEN: company.nameEN,
-  //       country: company.country,
-  //       director: company.director,
-  //       duration: company.duration,
-  //       year: company.year,
-  //       description: company.description,
-  //       trailerLink: company.trailerLink.match(urlTest)
-  //         ? company.trailerLink
-  //         : `https://www.youtube.com/results?search_query=${company.nameEN}`,
-  //       image: `${baseApiPath}` + `${company.image.url}`,
-  //       thumbnail: `${baseApiPath}` + `${company.image.formats.thumbnail.url}`,
-  //     });
-  //   else {
-  //     onClickRemove(savedCompanyList.filter((i) => i.companyId === company.id)[0]);
-  //   }
-  // }
-
   return (
     <section className="companyCard">
       <li className="company__item">

@@ -4,7 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const _ = require('lodash');
-const { NODE_ENV, DB_PATH, PORT = 3000 } = process.env;
+const { NODE_ENV, DB_PATH, PORT = 3005 } = process.env;
 const app = express();
 
 // enable files upload

@@ -8,9 +8,9 @@ export default function Navigation({ loggedIn, isOpen, closeMenu, menuClass, ...
       <NavLink
         className={`nav__link app__btn-opacity nav__link_${menuClass}`}
         onClick={closeMenu}
-        to="/projects"
+        to="/classifiers"
       >
-        Проекты
+        Классификаторы
       </NavLink>
       <NavLink
         className={`nav__link app__btn-opacity nav__link_${menuClass}`}
@@ -22,9 +22,9 @@ export default function Navigation({ loggedIn, isOpen, closeMenu, menuClass, ...
       <NavLink
         className={`nav__link app__btn-opacity nav__link_${menuClass}`}
         onClick={closeMenu}
-        to="/members"
+        to="/estimate"
       >
-        Участники
+        Cметы
       </NavLink>
     </nav>
   );

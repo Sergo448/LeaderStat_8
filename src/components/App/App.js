@@ -3,14 +3,13 @@ import {
   Routes,
   Route,
   useLocation,
-  useNavigate,
   Navigate,
 } from 'react-router-dom';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 import './App.css';
 import Main from '../Main/Main';
-import Projects from '../Movies/Projects';
-import SavedMovies from '../SavedMovies/Catalogs';
+import Сlassifiers from '../Сlassifiers/Сlassifiers';
+import CatalogsList from '../CatalogsList/CatalogsList';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
@@ -18,18 +17,15 @@ import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import Layout from '../Layout/Layout';
 import { mainApi } from '../../utils/MainApi';
 import PrivateRoute from '../../hoc/PrivateRoute';
+import Estimate from '../Estimate/Estimate';
 
 function App() {
   const location = useLocation();
   const [loggedIn, setLoggedIn] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [moviesList, setMoviesList] = useState([]);
-  const [savedMoviesList, setSavedMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSearchEnd, setIsSearchEnd] = useState(false);
   const [message, setMessage] = useState('');
   const [onEdit, setOnEdit] = useState(false);
-  let loginStatus = true;
   useContext(CurrentUserContext);
   const [titleName, setTitleName] = useState('Компании');
   const [currentUser, setCurrentUser] = useState({
@@ -100,8 +96,6 @@ function App() {
         if (res.statusCode !== 400) {
           setLoggedIn(false);
           localStorage.clear();
-          setMoviesList([]);
-          setSavedMoviesList([]);
           return <Navigate to="/" replace />;
         }
       })
@@ -212,17 +206,21 @@ function App() {
             <Route
               path="/projects"
               element={
+                <PrivateRoute
+                  loggedIn={loggedIn}
+                  location={location}
+                ></PrivateRoute>
+              }
+            ></Route>
+            <Route
+              path="/classifiers"
+              element={
                 <PrivateRoute loggedIn={loggedIn} location={location}>
-                  <Projects
-                    moviesList={moviesList}
-                    savedMoviesList={savedMoviesList}
-                    setMoviesList={setMoviesList}
+                  <Сlassifiers
                     loggedIn={loggedIn}
                     isLoading={isLoading}
                     setIsLoading={setIsLoading}
                     location={location.pathname}
-                    isSearchEnd={isSearchEnd}
-                    setIsSearchEnd={setIsSearchEnd}
                     message={message}
                     setMessage={setMessage}
                     setTitleName={setTitleName}
@@ -234,16 +232,12 @@ function App() {
               path="/catalog"
               element={
                 <PrivateRoute loggedIn={loggedIn} location={location}>
-                  <SavedMovies
+                  <CatalogsList
                     loggedIn={loggedIn}
                     isOpen={isOpen}
                     isLoading={isLoading}
                     setIsLoading={setIsLoading}
-                    savedMoviesList={savedMoviesList}
-                    setSavedMoviesList={setSavedMoviesList}
                     location={location.pathname}
-                    isSearchEnd={isSearchEnd}
-                    setIsSearchEnd={setIsSearchEnd}
                     message={message}
                     setMessage={setMessage}
                     setTitleName={setTitleName}
@@ -266,12 +260,19 @@ function App() {
               }
             ></Route>
             <Route
-              path="/members"
+              path="/estimate"
               element={
-                <PrivateRoute
-                  loggedIn={loggedIn}
-                  location={location}
-                ></PrivateRoute>
+                <PrivateRoute loggedIn={loggedIn} location={location}>
+                  <Estimate
+                    loggedIn={loggedIn}
+                    isLoading={isLoading}
+                    setIsLoading={setIsLoading}
+                    location={location.pathname}
+                    message={message}
+                    setMessage={setMessage}
+                    setTitleName={setTitleName}
+                  ></Estimate>
+                </PrivateRoute>
               }
             ></Route>
           </Route>

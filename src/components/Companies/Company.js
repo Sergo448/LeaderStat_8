@@ -38,17 +38,9 @@ export default function Company({
     }
   }
 
-  function offsetReset() {
-    setOffset(limit);
-  }
-
-  useEffect(() => {
-    setOffset(limit);
-  }, [limit]);
-
     useEffect(() => {
       setTitleName('Компании');
-    }, location);
+    }, [location]);
 
   // выбираем кол-во отображаемых карточек в зависимости от ширины экрана
   function windowWidthChecker() {
@@ -64,47 +56,10 @@ export default function Company({
     }
   }
 
-  //отслеживаем изменение ширины экрана каждые 2сек
-  useEffect(() => {
-    let resizeTimeout;
-
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(windowWidthChecker, 2000);
-    });
-
-    window.removeEventListener('resize', () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(windowWidthChecker, 2000);
-    });
-  }, []);
-
-  useEffect(() => {
-    filtredCompaniesList.length > offset
-      ? setMoreBtnActive(true)
-      : setMoreBtnActive(false);
-  }, [filtredCompaniesList, offset]);
-
-  function getSavedCompanyCard(arr, company) {
-    return arr.find((item) => {
-      return item.companyId === (company.id || company.companyId);
-    });
-  }
-
-  // useEffect(() => {
-  //   if (isSearchEnd && filtredCompaniesList.length === 0) {
-  //     setMessage('Ничего не найдено');
-  //   } else {
-  //     setMessage('');
-  //   }
-  // }, [companiesList, filtredCompaniesList]);
-
   return (
     <section className="company company__container">
       <CompaniesCardList
         isLoading={isLoading}
-        moreBtnActive={moreBtnActive}
-        offsetChanger={offsetChanger}
         message={message}
         // setMessage={setMessage}
       >
@@ -117,8 +72,6 @@ export default function Company({
                 key={company.id}
                 location={location}
                 savedCompaniesList={savedCompaniesList}
-                onClickLike={onClickLike}
-                onClickRemove={onClickRemove}
               />
             ))
         ) : (

@@ -4,7 +4,6 @@ import './Main.css';
 
 
 export default function Main({ setTitleName,
-  // savedCompaniesList,
   ...props }) {
 
     const savedCompaniesList = [];

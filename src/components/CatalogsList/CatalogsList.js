@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import Preloader from '../../Movies/Preloader/Preloader';
+import { useEffect, useState } from 'react';
 import './CatalogsList.css';
 
 export default function CatalogsList({
@@ -7,16 +6,21 @@ export default function CatalogsList({
   location,
   message,
   setMessage,
+  setTitleName,
   ...props
 }) {
+
+    useEffect(() => {
+      setTitleName('Справочники');
+    }, location);
 
 const [selectedSNFile, setSelectedSNFile] = useState(null);
 const [selectedTSNFile, setSelectedTSNFile] = useState(null);
 const [uploaded, setUploaded] = useState(null);
 const [docName, setDocName] = useState('');
-// const hostUrl = 'http://localhost:3005/upload';
+const hostUrl = 'http://localhost:3005/upload';
 
-const hostUrl = 'https://hackathon-leader-stat.vercel.app/upload';
+// const hostUrl = 'https://hackathon-leader-stat.vercel.app/upload';
 
 const handleSNChange = (event) => {
   setSelectedSNFile(event.target.files[0])
@@ -70,7 +74,6 @@ const toKb = (number) => {
 
   return (
     <>
-      <Preloader isLoading={isLoading}></Preloader>
       <div className="catalog__container">
         <div className="catalog__wrapper">
           <div className="catalog__btn catalog__add-document app__btn-opacity">
@@ -109,7 +112,7 @@ const toKb = (number) => {
               <div className="catalog__docs-wrapper">
                 <img
                   className="catalog__list-logo app__btn-opacity"
-                  src={require('../../../images/doc.jpg')}
+                  src={require('../../images/doc.jpg')}
                   alt="docs logo"
                   onClick={handleDelDoc}
                 ></img>
@@ -157,7 +160,7 @@ const toKb = (number) => {
               <div className="catalog__docs-wrapper">
                 <img
                   className="catalog__list-logo app__btn-opacity"
-                  src={require('../../../images/doc.jpg')}
+                  src={require('../../images/doc.jpg')}
                   alt="docs logo"
                 ></img>
                 <span className="catalog__docs-text">
@@ -181,7 +184,7 @@ const toKb = (number) => {
             <li className="catalog__list-item">
               <img
                 className="catalog__list-logo"
-                src={require('../../../images/doc.jpg')}
+                src={require('../../images/doc.jpg')}
                 alt="docs logo"
               ></img>
               <span className="catalog__docs-text">
@@ -191,7 +194,7 @@ const toKb = (number) => {
             <li className="catalog__list-item">
               <img
                 className="catalog__list-logo"
-                src={require('../../../images/doc.jpg')}
+                src={require('../../images/doc.jpg')}
                 alt="docs logo"
               ></img>
               <span className="catalog__docs-text">
@@ -201,7 +204,7 @@ const toKb = (number) => {
             <li className="catalog__list-item">
               <img
                 className="catalog__list-logo"
-                src={require('../../../images/doc.jpg')}
+                src={require('../../images/doc.jpg')}
                 alt="docs logo"
               ></img>
               <span className="catalog__docs-text">
@@ -211,7 +214,7 @@ const toKb = (number) => {
             <li className="catalog__list-item">
               <img
                 className="catalog__list-logo"
-                src={require('../../../images/doc.jpg')}
+                src={require('../../images/doc.jpg')}
                 alt="docs logo"
               ></img>
               <span className="catalog__docs-text">
